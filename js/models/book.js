@@ -1,7 +1,7 @@
 define(["underscore", "backbone"], function(_, Backbone) {
 
-	return Backbone.Model.extend({
-		urlRoot: "api/books"
-	});
+    return Backbone.Model.extend({
+        urlRoot: "api/books"
+    });
 
 });

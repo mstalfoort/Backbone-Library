@@ -1,15 +1,15 @@
 <form>
-	<fieldset>
-		<legend>Edit <%= type %></legend>
-		<% _.each(values, function(value, index, values) { %>
-			<div>
-				<label for="input-<%= labels[index] %>"><%= labels[index] %></label>
-				<input id="input-<%= labels[index] %>" type="text" value="<%= value %>"/>
-			</div>
-		<% }); %>
-		<div class="buttons">
-			<a href="#" class="btn" id="btn-cancel">Cancel</a>
-			<button class="btn primary" id="btn-save">Save</button>
-		</div>
-	</fieldset>
+    <fieldset>
+        <legend>Edit <%= type %></legend>
+        <% _.each(values, function(value, index, values) { %>
+            <div>
+                <label for="input-<%= labels[index] %>"><%= labels[index] %></label>
+                <input id="input-<%= labels[index] %>" type="text" value="<%= value %>"/>
+            </div>
+        <% }); %>
+        <div class="buttons">
+            <a href="#" class="btn" id="btn-cancel">Cancel</a>
+            <button class="btn primary" id="btn-save">Save</button>
+        </div>
+    </fieldset>
 </form>
