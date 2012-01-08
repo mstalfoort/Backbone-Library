@@ -1,0 +1,9 @@
+Backbone-Library is a simple client-side MVC CRUD application to demonstrate the power of combining several JavaScript libraries:
+- Backbone (Underscore)
+- jQuery
+- RequireJS
+
+To properly setup the RESTful API, follow these steps:
+- create a database named "library"
+- execute data/library.sql
+- change username and password in api/index.php
