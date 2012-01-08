@@ -1,6 +1,0 @@
-[
-	{ "title": "JavaScript: The Definitive Guide", "author": "David Flanagan", "isbn": "978-0596805524", "url": "http://www.amazon.com/dp/0596805527/", "type": "paperback", "pages": 1098, "price": 31.49, "id": 1 },
-	{ "title": "JavaScript: The Good Parts", "author": "Douglas Crockford", "isbn": "978-0596517748", "url": "http://www.amazon.com/dp/0596517742/", "type": "paperback", "pages": 176, "price": 17.99, "id": 2 },
-	{ "title": "JavaScript Patterns", "author": "Stoyan Stefanov", "isbn": "978-0596806750", "url": "http://www.amazon.com/dp/0596806752/", "type": "paperback", "pages": 234, "price": 19.79, "id": 3 },
-	{ "title": "Professional JavaScript for Web Developers", "author": "Nicholas C. Zakas", "isbn": "978-1118026694", "url": "http://www.amazon.com/dp/1118026691/", "type": "paperback", "pages": 960, "price": 27.38, "id": 4 }
-]
