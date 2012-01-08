@@ -1,0 +1,53 @@
+body
+{ font-family: "Trebuchet MS", sans-serif; }
+
+fieldset
+{ border: 2px solid #ddd; border-radius: 5px; padding: 10px 20px 20px 20px; }
+
+	fieldset legend
+	{ padding: 0 10px; white-space: nowrap; }
+
+	fieldset > div
+	{ margin: 5px 0; }
+
+	fieldset > div.buttons
+	{ margin-top: 15px; }
+
+	fieldset input[type="text"]
+	{ width: 300px; }
+
+h1
+{ margin: 20px; }
+
+table .col-title
+{ width: 50%; }
+
+.view
+{ padding: 10px 20px 20px 20px; }
+
+	.view form
+	{ min-width: 430px; max-width: 500px; }
+
+		.view label
+		{ color: #555; font-weight: bold; margin-right: 10px; min-width: 75px; width: auto; }
+
+		.view .buttons
+		{ padding-left: 260px; }
+
+#delete .buttons
+{ padding-left: 0; }
+
+#details
+{ border: 2px solid #ddd; border-radius: 5px; margin: 10px 20px; }
+
+	#details > a
+	{ float: right; }
+
+	#details dl
+	{ margin-bottom: 0; overflow: hidden; }
+
+		#details dt
+		{ clear: left; float: left; min-width: 60px; padding: 2px 0; }
+
+		#details dd
+		{ float: left; padding: 2px 0; }
