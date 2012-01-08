@@ -14,25 +14,3 @@ require(["routers/library", "backbone"], function(Library, Backbone) {
     });
     Backbone.history.start();
 });
-
-/*
-    * convert booklist to table
-    * implement templates
-    * add book details
-    * implement book crud
-    * refactor showBookList
-    * implement dispatcher
-    * setup database-backed api
-    * implement model/collection fetches
-    * prevent unnecessary server calls
-    * completely decouple models, collections, views and routers
-    * integrate with require.js
-    * move templates to separate files
-    add model validation
-    add field types
-    add paging
-    add flash messages
-    add hasRead toggle to booklist
-    add movies
-    add music
-*/
