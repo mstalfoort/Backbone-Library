@@ -1,4 +1,5 @@
-Backbone-Library is a simple client-side MVC CRUD application to demonstrate the power of combining several JavaScript libraries:
+Backbone-Library is a simple client-side MVC CRUD application to demonstrate the power
+of combining several JavaScript libraries:
 - Backbone (Underscore)
 - jQuery
 - RequireJS
@@ -7,3 +8,15 @@ To properly setup the RESTful API, follow these steps:
 - create a database named "library"
 - execute data/library.sql
 - change username and password in api/index.php
+- add api/.htaccess file with following contents:
+
+RewriteEngine On
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+# RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
