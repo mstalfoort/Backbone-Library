@@ -1,4 +1,6 @@
-define(["jquery", "underscore", "backbone", "views/book/list-item", "text!templates/book/list.html"], function($, _, Backbone, ListItem, listTemplate) {
+define([
+            "jquery", "underscore", "backbone", "views/book/list-item", "text!templates/book/list.html"
+], function( $,        _,            Backbone,   ListItem,               listTemplate) {
 
     return Backbone.View.extend({
         /* element properties */
@@ -31,7 +33,7 @@ define(["jquery", "underscore", "backbone", "views/book/list-item", "text!templa
 
             $tbody = $el.find("tbody");
 
-            this.collection.each(function(model, index, list) {
+            this.collection.each(function(model) {
                 $tbody.append(new ListItem({ model: model }).render().el);
             });
 

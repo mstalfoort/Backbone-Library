@@ -1,4 +1,6 @@
-define(["jquery", "underscore", "backbone", "text!templates/book/add.html"], function($, _, Backbone, addTemplate) {
+define([
+           "jquery", "underscore", "backbone", "text!templates/book/add.html"
+],function( $,        _,            Backbone,   addTemplate) {
 
     return Backbone.View.extend({
         /* element properties */
@@ -8,26 +10,29 @@ define(["jquery", "underscore", "backbone", "text!templates/book/add.html"], fun
 
         /* view properties */
         events: { "click #btn-save": "saveBook" },
-        labels: ["title", "description", "author", "publisher", "date", "isbn", "format", "pages", "price", "url"],
         template: _.template(addTemplate),
 
-        /* view methods */
-        close: function() { $(this.el).unbind().remove(); },
+        /* element methods */
+        close: function() {
+            $(this.el).unbind().remove();
+        },
         render: function() {
             $(this.el).html(this.template({
-                labels: this.labels,
+                fields: this.model.fields,
                 type: "book"
             }));
             this.options.container.append(this.el);
             return this;
         },
+
+        /*  event methods */
         saveBook: function(event) {
             var newData = {};
 
             event.preventDefault();
 
-            _.each(this.labels, function(label, index, labels) {
-                newData[label] = $("#input-" + label).val();
+            _.each(this.model.fields, function(field, index, fields) {
+                newData[field.label] = $("#input-" + field.label).val();
             }, this);
 
             this.model.set(newData);

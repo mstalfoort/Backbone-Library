@@ -1,15 +1,6 @@
 define([
-    "jquery",
-    "underscore",
-    "backbone",
-    "models/book",
-    "collections/books",
-    "views/book/add",
-    "views/book/delete",
-    "views/book/details",
-    "views/book/edit",
-    "views/book/list"
-], function($, _, Backbone, BookModel, BookCollection, BookAddView, BookDeleteView, BookDetailsView, BookEditView, BookListView) {
+            "jquery",  "underscore", "backbone", "models/book", "collections/books", "views/book/add", "views/book/delete", "views/book/details", "views/book/edit", "views/book/list"
+], function( $,         _,            Backbone,   BookModel,     BookCollection,      BookAddView,      BookDeleteView,      BookDetailsView,      BookEditView,      BookListView) {
 
     return Backbone.Router.extend({
         initialize: function(options) {

@@ -1,4 +1,6 @@
-define(["jquery", "underscore", "backbone", "text!templates/book/delete.html"], function($, _, Backbone, deleteTemplate) {
+define([
+            "jquery", "underscore", "backbone", "text!templates/book/delete.html"
+], function( $,        _,            Backbone,   deleteTemplate) {
 
     return Backbone.View.extend({
         /* element properties */

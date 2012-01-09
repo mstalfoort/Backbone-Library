@@ -1,4 +1,6 @@
-define(["jquery", "underscore", "backbone", "text!templates/book/details.html"], function($, _, Backbone, detailsTemplate) {
+define([
+            "jquery", "underscore", "backbone", "text!templates/book/details.html"
+], function( $,        _,            Backbone,   detailsTemplate) {
 
     return Backbone.View.extend({
         /* element properties */
@@ -7,7 +9,6 @@ define(["jquery", "underscore", "backbone", "text!templates/book/details.html"],
         tagName: "div",
 
         /* view properties */
-        labels: ["author", "publisher", "date", "isbn", "format", "pages", "price"],
         template: _.template(detailsTemplate),
 
         /* view methods */
@@ -16,15 +17,14 @@ define(["jquery", "underscore", "backbone", "text!templates/book/details.html"],
             $(this.el).html(this.template({
                 description: this.model.get("description"),
                 details: [
-                    this.model.get("author"),
-                    this.model.get("publisher"),
-                    this.model.get("date"),
-                    "<a href='" + this.model.get("url") + "'>" + this.model.get("isbn") + "</a>",
-                    this.model.get("format").toLowerCase(),
-                    this.model.get("pages"),
-                    "$ " + this.model.get("price")
+                    { label: "author", value: this.model.get("author") },
+                    { label: "publisher", value: this.model.get("publisher") },
+                    { label: "date", value: this.model.get("date") },
+                    { label: "isbn", value: "<a href='" + this.model.get("url") + "'>" + this.model.get("isbn") + "</a>" },
+                    { label: "format", value: this.model.get("format").toLowerCase() },
+                    { label: "pages", value: this.model.get("pages") },
+                    { label: "price", value: "$ " + this.model.get("price") }
                 ],
-                labels: this.labels,
                 title: this.model.get("title")
             }));
             this.options.container.append(this.el);

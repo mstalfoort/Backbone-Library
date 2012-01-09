@@ -1,10 +1,10 @@
 <form>
     <fieldset>
         <legend>Edit <%= type %></legend>
-        <% _.each(values, function(value, index, values) { %>
+        <% _.each(fields, function(field) { %>
             <div>
-                <label for="input-<%= labels[index] %>"><%= labels[index] %></label>
-                <input id="input-<%= labels[index] %>" type="text" value="<%= value %>"/>
+                <label for="input-<%= field.label %>"><%= field.label %></label>
+                <input id="input-<%= field.label %>" type="text" value="<%= field.value %>"/>
             </div>
         <% }); %>
         <div class="buttons">

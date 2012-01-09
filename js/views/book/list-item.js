@@ -1,4 +1,6 @@
-define(["jquery", "underscore", "backbone", "text!templates/book/list-item.html"], function($, _, Backbone, listItemTemplate) {
+define([
+            "jquery", "underscore", "backbone", "text!templates/book/list-item.html"
+], function( $,        _,            Backbone,   listItemTemplate) {
 
     return Backbone.View.extend({
         /* element properties */
@@ -12,7 +14,7 @@ define(["jquery", "underscore", "backbone", "text!templates/book/list-item.html"
             var id = this.model.get("id");
 
             $(this.el).html(this.template({
-                columns: [
+                data: [
                     id,
                     "<a href='#books/" + id + "/show'>" + this.model.get("title") + "</a>",
                     this.model.get("author"),

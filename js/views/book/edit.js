@@ -1,4 +1,6 @@
-define(["jquery", "underscore", "backbone", "text!templates/book/edit.html"], function($, _, Backbone, editTemplate) {
+define([
+            "jquery", "underscore", "backbone", "text!templates/book/edit.html"
+], function( $,        _,            Backbone,   editTemplate) {
 
     return Backbone.View.extend({
         /* element properties */
@@ -8,26 +10,19 @@ define(["jquery", "underscore", "backbone", "text!templates/book/edit.html"], fu
 
         /* view properties */
         events: { "click #btn-save": "saveBook" },
-        labels: ["title", "description", "author", "publisher", "date", "isbn", "format", "pages", "price", "url"],
         template: _.template(editTemplate),
 
         /* view methods */
         close: function() { $(this.el).unbind().remove(); },
         render: function() {
+            var fields = [];
+
+            _.each(this.model.fields, function(field) {
+                fields.push(_.extend(field, { value: this.model.get(field.label) }));
+            }, this);
+
             $(this.el).html(this.template({
-                values: [
-                    this.model.get("title"),
-                    this.model.get("description"),
-                    this.model.get("author"),
-                    this.model.get("publisher"),
-                    this.model.get("date"),
-                    this.model.get("isbn"),
-                    this.model.get("format").toLowerCase(),
-                    this.model.get("pages"),
-                    this.model.get("price"),
-                    this.model.get("url")
-                ],
-                labels: this.labels,
+                fields: fields,
                 title: this.model.get("title"),
                 type: "book"
             }));
@@ -39,8 +34,8 @@ define(["jquery", "underscore", "backbone", "text!templates/book/edit.html"], fu
 
             event.preventDefault();
 
-            _.each(this.labels, function(label, index, labels) {
-                newData[label] = $("#input-" + label).val();
+            _.each(this.model.fields, function(field, index, fields) {
+                newData[field] = $("#input-" + field.label).val();
             }, this);
 
             this.model.set(newData);
