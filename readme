@@ -7,9 +7,15 @@ of combining several JavaScript libraries:
 To properly setup the RESTful API, follow these steps:
 - create a database named "library"
 - execute data/library.sql
-- change db settings in api/config.inc.php
-- add api/.htaccess file with following contents:
+- add api/config.inc.php file with following contents:
+<?php
+    $config['dbhost'] = 'your-db-hostname';
+    $config['dbname'] = 'your-db-name';
+    $config['dbuser'] = 'your-db-username';
+    $config['dbpass'] = 'your-db-password';
+?>
 
+- add api/.htaccess file with following contents:
 RewriteEngine On
 
 # Some hosts may require you to use the `RewriteBase` directive.
