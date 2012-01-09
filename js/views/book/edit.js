@@ -1,5 +1,4 @@
-define([
-            "jquery", "underscore", "backbone", "text!templates/book/edit.html"
+define([    "jquery", "underscore", "backbone", "text!templates/book/edit.html"
 ], function( $,        _,            Backbone,   editTemplate) {
 
     return Backbone.View.extend({
@@ -12,7 +11,7 @@ define([
         events: { "click #btn-save": "saveBook" },
         template: _.template(editTemplate),
 
-        /* view methods */
+        /* element methods */
         close: function() { $(this.el).unbind().remove(); },
         render: function() {
             var fields = [];
@@ -29,13 +28,15 @@ define([
             this.options.container.append(this.el);
             return this;
         },
+
+        /* event methods */
         saveBook: function(event) {
             var newData = {};
 
             event.preventDefault();
 
             _.each(this.model.fields, function(field, index, fields) {
-                newData[field] = $("#input-" + field.label).val();
+                newData[field.label] = $("#input-" + field.label).val();
             }, this);
 
             this.model.set(newData);

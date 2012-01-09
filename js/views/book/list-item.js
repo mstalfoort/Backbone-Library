@@ -1,5 +1,4 @@
-define([
-            "jquery", "underscore", "backbone", "text!templates/book/list-item.html"
+define([    "jquery", "underscore", "backbone", "text!templates/book/list-item.html"
 ], function( $,        _,            Backbone,   listItemTemplate) {
 
     return Backbone.View.extend({
@@ -9,7 +8,7 @@ define([
         /* view properties */
         template: _.template(listItemTemplate),
 
-        /* view methods */
+        /* element methods */
         render: function() {
             var id = this.model.get("id");
 

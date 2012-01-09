@@ -1,5 +1,4 @@
-define([
-            "jquery", "underscore", "backbone", "views/book/list-item", "text!templates/book/list.html"
+define([    "jquery", "underscore", "backbone", "views/book/list-item", "text!templates/book/list.html"
 ], function( $,        _,            Backbone,   ListItem,               listTemplate) {
 
     return Backbone.View.extend({
@@ -12,14 +11,8 @@ define([
         headers: ["id", "title", "author", "price", "actions"],
         template: _.template(listTemplate),
 
-        /* view methods */
+        /* element methods */
         close: function() { $(this.el).unbind().remove(); },
-        initialize: function() {
-            this.collection.bind("reset", this.render, this);
-            this.collection.bind("add", function(model) {
-                $(this.el).find("tbody").prepend(new ListItem({ model: model }).render().el);
-            }, this);
-        },
         render: function() {
             var $el = $(this.el),
                 $tbody = null;
@@ -40,7 +33,16 @@ define([
             this.options.container.append(this.el);
 
             return this;
+        },
+
+        /* view methods */
+        initialize: function() {
+            this.collection.bind("reset", this.render, this);
+            this.collection.bind("add", function(model) {
+                $(this.el).find("tbody").prepend(new ListItem({ model: model }).render().el);
+            }, this);
         }
+
     });
 
 });

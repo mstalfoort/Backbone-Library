@@ -1,6 +1,5 @@
-define([
-           "jquery", "underscore", "backbone", "text!templates/book/add.html"
-],function( $,        _,            Backbone,   addTemplate) {
+define([    "jquery", "underscore", "backbone", "text!templates/book/add.html"
+], function( $,        _,            Backbone,   addTemplate) {
 
     return Backbone.View.extend({
         /* element properties */

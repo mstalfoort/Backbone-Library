@@ -1,5 +1,4 @@
-define([
-            "jquery", "underscore", "backbone", "text!templates/book/details.html"
+define([    "jquery", "underscore", "backbone", "text!templates/book/details.html"
 ], function( $,        _,            Backbone,   detailsTemplate) {
 
     return Backbone.View.extend({
@@ -11,7 +10,7 @@ define([
         /* view properties */
         template: _.template(detailsTemplate),
 
-        /* view methods */
+        /* element methods */
         close: function() { $(this.el).unbind().remove(); },
         render: function() {
             $(this.el).html(this.template({

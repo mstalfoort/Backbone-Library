@@ -1,5 +1,4 @@
-define([
-            "jquery", "underscore", "backbone", "text!templates/book/delete.html"
+define([    "jquery", "underscore", "backbone", "text!templates/book/delete.html"
 ], function( $,        _,            Backbone,   deleteTemplate) {
 
     return Backbone.View.extend({
@@ -12,17 +11,9 @@ define([
         events: { "click #btn-yes": "deleteBook" },
         template: _.template(deleteTemplate),
 
-        /* view methods */
+        /* element methods */
         close: function() {
             $(this.el).unbind().remove();
-        },
-        deleteBook: function(event) {
-            event.preventDefault();
-            this.model.destroy({
-                success: function() {
-                    window.location.hash = "";
-                }
-            });
         },
         render: function() {
             $(this.el).html(this.template({
@@ -31,6 +22,16 @@ define([
             }));
             this.options.container.append(this.el);
             return this;
+        },
+
+        /* event methods */
+        deleteBook: function(event) {
+            event.preventDefault();
+            this.model.destroy({
+                success: function() {
+                    window.location.hash = "";
+                }
+            });
         }
     });
 
