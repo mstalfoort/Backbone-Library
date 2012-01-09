@@ -4,7 +4,7 @@ define([    "underscore", "backbone"
     return Backbone.Model.extend({
         fields: [
             { label: "title", type: "text" },
-            { label: "description", type: "text" },
+            { label: "description", type: "memo" },
             { label: "author", type: "text" },
             { label: "publisher", type: "text" },
             { label: "date", type: "text" },

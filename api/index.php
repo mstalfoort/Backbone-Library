@@ -5,6 +5,7 @@ require 'Slim/Slim.php';
 $app = new Slim();
 
 $app->get('/books', 'getBooks');
+$app->get('/publishers', 'getPublishers');
 $app->get('/books/:id',	'getBook');
 $app->get('/books/search/:query', 'findByName');
 $app->post('/books', 'addBook');
@@ -16,7 +17,6 @@ $app->response()->header('Content-Type', 'text/plain');
 $app->run();
 
 function getBooks() {
-	//$sql = "SELECT id, title, author, price FROM books ORDER BY id";
 	$sql = "SELECT * FROM books ORDER BY id";
 	try {
 		$db = getConnection();
@@ -25,6 +25,20 @@ function getBooks() {
 		$db = null;
 		// echo '{"book": ' . json_encode($books) . '}';
 		echo json_encode($books);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
+
+function getPublishers() {
+	$sql = "SELECT DISTINCT publisher FROM books ORDER BY publisher";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$publishers = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		// echo '{"book": ' . json_encode($books) . '}';
+		echo json_encode($publishers);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
