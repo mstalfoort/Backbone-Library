@@ -6,7 +6,7 @@ define([    "underscore", "backbone"
             { label: "title", type: "text" },
             { label: "description", type: "memo" },
             { label: "author", type: "text" },
-            { label: "publisher", type: "text" },
+            { label: "publisher", type: "list", src: "api/publishers" },
             { label: "date", type: "text" },
             { label: "isbn", type: "text" },
             { label: "format", type: "text" },
@@ -16,5 +16,4 @@ define([    "underscore", "backbone"
         ],
         urlRoot: "api/books"
     });
-
 });

@@ -11,6 +11,15 @@
                     case "memo": %>
                         <textarea id="input-<%= field.label %>" cols="35" rows="5"></textarea>
                     <% break;
+                    case "list": %>
+                        <strong><%= lists.length %></strong>
+                        <select id="input-<%= field.label %>">
+                            <option>select a publisher</option>
+                            <% _.each(lists.publisher, function(publisher) { %>
+                                <option value="<%= publisher.publisher %>"><%= publisher.publisher %></option>
+                            <% }); %>
+                        </select>
+                    <% break;
                     default: %>
                 <% } %>
 

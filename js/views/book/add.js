@@ -16,15 +16,36 @@ define([    "jquery", "underscore", "backbone", "text!templates/book/add.html"
             $(this.el).unbind().remove();
         },
         render: function() {
+            var publishers = [],
+                lists = {};
+
+            _.each(this.model.fields, function(item, index, list) {
+                if (item.type === "list") {
+                    $.ajax({
+                        async: false,
+                        dataType: "json",
+                        success: function(data) {
+                            lists[item.label] = data;
+                        },
+                        type: "get",
+                        url: "api/publishers"
+                    });
+                };
+            });
+
+            console.info(lists);
+
             $(this.el).html(this.template({
                 fields: this.model.fields,
+                lists: lists,
                 type: "book"
             }));
+
             this.options.container.append(this.el);
             return this;
         },
 
-        /*  event methods */
+        /* event methods */
         saveBook: function(event) {
             var newData = {};
 
@@ -39,5 +60,4 @@ define([    "jquery", "underscore", "backbone", "text!templates/book/add.html"
             window.location.hash = "";
         }
     });
-
 });
