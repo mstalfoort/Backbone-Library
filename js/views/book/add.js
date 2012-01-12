@@ -11,15 +11,11 @@ define([    "jquery", "underscore", "backbone", "text!templates/book/add.html"
         events: { "click #btn-save": "saveBook" },
         template: _.template(addTemplate),
 
-        /* element methods */
-        close: function() {
-            $(this.el).unbind().remove();
-        },
-        render: function() {
-            var publishers = [],
-                lists = {};
+        /* data methods */
+        getLists: function(fields) {
+            var lists = {};
 
-            _.each(this.model.fields, function(item, index, list) {
+            _.each(fields, function(item, index, list) {
                 if (item.type === "list") {
                     $.ajax({
                         async: false,
@@ -28,16 +24,22 @@ define([    "jquery", "underscore", "backbone", "text!templates/book/add.html"
                             lists[item.label] = data;
                         },
                         type: "get",
-                        url: "api/publishers"
+                        url: item.src
                     });
                 };
             });
 
-            console.info(lists);
+            return lists;
+        },
 
+        /* element methods */
+        close: function() {
+            $(this.el).unbind().remove();
+        },
+        render: function() {
             $(this.el).html(this.template({
                 fields: this.model.fields,
-                lists: lists,
+                lists: this.getLists(this.model.fields),
                 type: "book"
             }));
 

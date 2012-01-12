@@ -6,6 +6,9 @@ $app = new Slim();
 
 $app->get('/books', 'getBooks');
 $app->get('/publishers', 'getPublishers');
+
+$app->get('/formats', 'getFormats');
+
 $app->get('/books/:id',	'getBook');
 $app->get('/books/search/:query', 'findByName');
 $app->post('/books', 'addBook');
@@ -23,7 +26,6 @@ function getBooks() {
 		$stmt = $db->query($sql);
 		$books = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		// echo '{"book": ' . json_encode($books) . '}';
 		echo json_encode($books);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -37,8 +39,20 @@ function getPublishers() {
 		$stmt = $db->query($sql);
 		$publishers = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		// echo '{"book": ' . json_encode($books) . '}';
 		echo json_encode($publishers);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
+
+function getFormats() {
+	$sql = "SELECT DISTINCT format FROM books ORDER BY format";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$formats = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($formats);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
@@ -60,7 +74,6 @@ function getBook($id) {
 }
 
 function addBook() {
-	//error_log('addBook\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$book = json_decode($request->getBody());
 	$sql = "INSERT INTO books (title, description, pages, publisher, date, isbn, format, price, author, url) VALUES (:title, :description, :pages, :publisher, :date, :isbn, :format, :price, :author, :url)";
@@ -82,7 +95,6 @@ function addBook() {
 		$db = null;
 		echo json_encode($book);
 	} catch(PDOException $e) {
-		//error_log($e->getMessage(), 3, '/var/tmp/php.log');
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }

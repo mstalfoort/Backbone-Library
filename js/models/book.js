@@ -9,7 +9,8 @@ define([    "underscore", "backbone"
             { label: "publisher", type: "list", src: "api/publishers" },
             { label: "date", type: "text" },
             { label: "isbn", type: "text" },
-            { label: "format", type: "text" },
+            { label: "format", type: "enum", values: ["paperback", "hardcover", "e-book", "other"] },
+            //{ label: "format", type: "list", src: "api/formats" },
             { label: "pages", type: "text" },
             { label: "price", type: "text" },
             { label: "url", type: "text" }

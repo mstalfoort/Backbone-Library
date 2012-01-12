@@ -4,24 +4,41 @@
         <% _.each(fields, function(field) { %>
             <div>
                 <label for="input-<%= field.label %>"><%= field.label %></label>
-                <% switch(field.type) {
-                    case "text": %>
-                        <input id="input-<%= field.label %>" type="<%= field.type %>"/>
-                    <% break;
-                    case "memo": %>
+                <%
+                    switch(field.type) {
+                        case "text":
+                    %>
+                        <input id="input-<%= field.label %>" type="text"/>
+                    <%
+                        break;
+                        case "memo":
+                    %>
                         <textarea id="input-<%= field.label %>" cols="35" rows="5"></textarea>
-                    <% break;
-                    case "list": %>
-                        <strong><%= lists.length %></strong>
+                    <%
+                        break;
+                        case "list":
+                    %>
                         <select id="input-<%= field.label %>">
-                            <option>select a publisher</option>
-                            <% _.each(lists.publisher, function(publisher) { %>
-                                <option value="<%= publisher.publisher %>"><%= publisher.publisher %></option>
+                            <option selected="selected">select a <%= field.label %></option>
+                            <% _.each(lists[field.label], function(item) { %>
+                                <option value="<%= item[field.label] %>"><%= item[field.label] %></option>
                             <% }); %>
                         </select>
-                    <% break;
-                    default: %>
-                <% } %>
+                    <%
+                        break;
+                        case "enum":
+                    %>
+                        <select id="input-<%= field.label %>">
+                            <option selected="selected">select a <%= field.label %></option>
+                            <% _.each(field.values, function(value) { %>
+                                <option value="<%= value %>"><%= value %></option>
+                            <% }); %>
+                        </select>
+                    <%
+                        break;
+                        default:
+                    }
+                %>
 
             </div>
         <% }); %>
