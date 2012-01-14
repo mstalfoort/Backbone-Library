@@ -8,7 +8,7 @@ define([    "jquery", "underscore", "backbone", "text!templates/add.html"
         tagName: "div",
 
         /* view properties */
-        events: { "click #btn-save": "saveBook" },
+        events: { "click #btn-save": "saveTrack" },
         template: _.template(addTemplate),
 
         /* data methods */
@@ -40,7 +40,7 @@ define([    "jquery", "underscore", "backbone", "text!templates/add.html"
             $(this.el).html(this.template({
                 fields: this.model.fields,
                 lists: this.getLists(this.model.fields),
-                type: "book"
+                type: "track"
             }));
 
             this.options.container.append(this.el);
@@ -48,7 +48,7 @@ define([    "jquery", "underscore", "backbone", "text!templates/add.html"
         },
 
         /* event methods */
-        saveBook: function(event) {
+        saveTrack: function(event) {
             var newData = {};
 
             event.preventDefault();
@@ -59,7 +59,7 @@ define([    "jquery", "underscore", "backbone", "text!templates/add.html"
 
             this.model.set(newData);
             this.collection.create(this.model);
-            window.location.hash = "books";
+            window.location.hash = "tracks";
         }
     });
 });

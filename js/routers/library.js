@@ -1,111 +1,106 @@
-define([    "jquery",  "underscore", "backbone", "models/book", "collections/books", "views/book/add", "views/book/delete", "views/book/details", "views/book/edit", "views/book/list"
-], function( $,         _,            Backbone,   BookModel,     BookCollection,      BookAddView,      BookDeleteView,      BookDetailsView,      BookEditView,      BookListView) {
+define([    "jquery",  "underscore", "backbone", "routers/books", "routers/tracks"
+], function( $,         _,            Backbone,   BookRouter,      TrackRouter) {
 
     return Backbone.Router.extend({
         initialize: function(options) {
             this.appContainer = $(options.appContainer);
+
+            var bookRouter = new BookRouter(),
+                trackRouter = new TrackRouter;
+
+            this.route("books/add", "addBook", function() {
+                this.dispatch({
+                    router: bookRouter,
+                    view: "addBook"
+                });
+            });
+
+            this.route("books/:id/delete", "deleteBook", function(id) {
+                this.dispatch({
+                    id: id,
+                    router: bookRouter,
+                    view: "deleteBook"
+                });
+            });
+
+            this.route("books/:id/edit", "editBook", function(id) {
+                this.dispatch({
+                    id: id,
+                    router: bookRouter,
+                    view: "editBook"
+                });
+            });
+
+            this.route("books/:id/show", "showBook", function(id) {
+                this.dispatch({
+                    id: id,
+                    router: bookRouter,
+                    view: "showBook"
+                });
+            });
+
+            this.route("books", "showBooks", function() {
+                this.dispatch({
+                    router: bookRouter,
+                    view: "showBooks"
+                });
+            });
+
+
+
+            this.route("tracks/add", "addTrack", function() {
+                this.dispatch({
+                    router: trackRouter,
+                    view: "addTrack"
+                });
+            });
+
+            this.route("tracks/:id/delete", "deleteTrack", function(id) {
+                this.dispatch({
+                    id: id,
+                    router: trackRouter,
+                    view: "deleteTrack"
+                });
+            });
+
+            this.route("tracks/:id/edit", "editTrack", function(id) {
+                this.dispatch({
+                    id: id,
+                    router: trackRouter,
+                    view: "editTrack"
+                });
+            });
+
+            this.route("tracks/:id/show", "showTrack", function(id) {
+                this.dispatch({
+                    id: id,
+                    router: trackRouter,
+                    view: "showTrack"
+                });
+            });
+
+            this.route("tracks", "showTracks", function() {
+                this.dispatch({
+                    router: trackRouter,
+                    view: "showTracks"
+                });
+            });
+
         },
 
         appContainer: null,
-        collections: {},
         currentView: null,
-        routes: {
-            ""                  : "showBookList",
-            "books/add"         : "addBook",
-            "books/:id/delete"  : "deleteBook",
-            "books/:id/edit"    : "editBook",
-            "books/:id/show"    : "showBook"
-        },
+
+        collections: {},
         views: {},
 
-        addBook: function() {
-            this.dispatch("addBook", null, function(router, view) {
-                router.views[view] = new BookAddView({
-                    collection: router.collections.books || new BookCollection(),
-                    container: router.appContainer,
-                    model: new BookModel()
-                }).render();
-            });
-        },
-        deleteBook: function(id) {
-            this.dispatch("deleteBook", id, function(router, view) {
-                var setDeleteView = function(model) {
-                    router.views[view] = new BookDeleteView({
-                        container: router.appContainer,
-                        model: model
-                    }).render();
-                };
-
-                router.collections.books
-                    ? setDeleteView(router.collections.books.get(id))
-                    : new BookModel({ id: id }).fetch({
-                        success: function(model, response) {
-                            setDeleteView(model);
-                        }
-                    });
-            })
-        },
-        editBook: function(id) {
-            this.dispatch("editBook", id, function(router, view) {
-                var setEditView = function(model) {
-                    router.views[view] = new BookEditView({
-                        container: router.appContainer,
-                        model: model
-                    }).render();
-                };
-
-                router.collections.books
-                    ? setEditView(router.collections.books.get(id))
-                    : new BookModel({ id: id }).fetch({
-                        success: function(model, response) {
-                            setEditView(model);
-                        }
-                    });
-            });
-        },
-        showBook: function(id) {
-            this.dispatch("showBook", id, function(router, view) {
-                var setBookView = function(model) {
-                    router.views[view] = new BookDetailsView({
-                        container: router.appContainer,
-                        model: model
-                    }).render();
-                };
-
-                router.collections.books
-                    ? setBookView(router.collections.books.get(id))
-                    : new BookModel({ id: id }).fetch({
-                        success: function(model, response) {
-                            setBookView(model);
-                        }
-                    });
-            });
-        },
-        showBookList: function() {
-            this.collections.books = this.collections.books || new BookCollection(); /* make sure we have a collection */
-            this.dispatch("showBookList", null, function(router, view) {
-                router.views[view] = new BookListView({
-                    container: router.appContainer,
-                    collection: router.collections.books
-                });
-
-                router.collections.books.length !== 0
-                    ? router.views[view].render()       /* collection has been fetched previously */
-                    : router.collections.books.fetch(); /* collection is empty so fetch it */
-            });
-        },
-
-        dispatch: function(view, modelId, callback) {
-            var router = this;
-
-            if (router.currentView === view) {  /* view corresponds with current view */
-                callback(router, view);         /* so execute view's callback */
-            } else {
-                router.views[router.currentView] && router.views[router.currentView].close();   /* close current view */
-                router.currentView = view;                                                      /* update currentView with new view */
-                router[view](modelId);                                                          /* execute new view */
-            }
+        dispatch: function(config) {
+            this.views[this.currentView] && this.views[this.currentView].close();
+            this.currentView = config.view;
+            config.router[config.view](this, config);
         }
+
+
     });
 
 });

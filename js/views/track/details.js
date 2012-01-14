@@ -15,17 +15,14 @@ define([    "jquery", "underscore", "backbone", "text!templates/details.html"
         render: function() {
             $(this.el).html(this.template({
                 details: [
-                    { label: "description", value: this.model.get("description") },
-                    { label: "author", value: this.model.get("author") },
-                    { label: "publisher", value: this.model.get("publisher") },
-                    { label: "date", value: this.model.get("date") },
-                    { label: "isbn", value: "<a href='" + this.model.get("url") + "'>" + this.model.get("isbn") + "</a>" },
-                    { label: "format", value: this.model.get("format").toLowerCase() },
-                    { label: "pages", value: this.model.get("pages") },
-                    { label: "price", value: "$ " + this.model.get("price") }
+                    { label: "artist", value: this.model.get("artist") },
+                    { label: "album", value: this.model.get("album") },
+                    { label: "length", value: this.model.get("length") },
+                    { label: "genre", value: this.model.get("genre") },
+                    { label: "year", value: this.model.get("year") }
                 ],
                 title: this.model.get("title"),
-                type: "book"
+                type: "track"
             }));
             this.options.container.append(this.el);
             return this;

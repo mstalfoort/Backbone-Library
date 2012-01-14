@@ -8,7 +8,7 @@ define([    "jquery", "underscore", "backbone", "text!templates/delete.html"
         tagName: "div",
 
         /* view properties */
-        events: { "click #btn-yes": "deleteBook" },
+        events: { "click #btn-yes": "deleteTrack" },
         template: _.template(deleteTemplate),
 
         /* element methods */
@@ -18,18 +18,18 @@ define([    "jquery", "underscore", "backbone", "text!templates/delete.html"
         render: function() {
             $(this.el).html(this.template({
                 title: this.model.get("title"),
-                type: "book"
+                type: "track"
             }));
             this.options.container.append(this.el);
             return this;
         },
 
         /* event methods */
-        deleteBook: function(event) {
+        deleteTrack: function(event) {
             event.preventDefault();
             this.model.destroy({
                 success: function() {
-                    window.location.hash = "books";
+                    window.location.hash = "tracks";
                 }
             });
         }

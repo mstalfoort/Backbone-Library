@@ -1,4 +1,4 @@
-define([    "jquery", "underscore", "backbone", "views/book/list-item", "text!templates/list.html"
+define([    "jquery", "underscore", "backbone", "views/track/list-item", "text!templates/list.html"
 ], function( $,        _,            Backbone,   ListItem,               listTemplate) {
 
     return Backbone.View.extend({
@@ -8,7 +8,7 @@ define([    "jquery", "underscore", "backbone", "views/book/list-item", "text!te
         tagName: "div",
 
         /* view properties */
-        headers: ["id", "title", "author", "price", "actions"],
+        headers: ["id", "title", "artist", "genre", "actions"],
         template: _.template(listTemplate),
 
         /* element methods */
@@ -18,11 +18,11 @@ define([    "jquery", "underscore", "backbone", "views/book/list-item", "text!te
                 $tbody = null;
 
             $el.html(this.template({
-                caption: "My books",
+                caption: "My tracks",
                 headers: this.headers
             }));
 
-            $el.prepend("<p><a href='#books/add' class='btn'>Add book</a></p>");
+            $el.prepend("<p><a href='#tracks/add' class='btn'>Add track</a></p>");
 
             $tbody = $el.find("tbody");
 
