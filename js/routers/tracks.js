@@ -66,14 +66,28 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
         showTracks: function(router, config) {
             router.collections.tracks = router.collections.tracks || new TrackCollection(); /* make sure we have a collection */
 
-            router.views[config.view] = new TrackListView({
-                container: router.appContainer,
-                collection: router.collections.tracks
+            library.views[config.view] = library.views[config.view] || new TrackListView({   /* reuse existing view to prevent double reset */
+                container: library.appContainer,
+                collection: library.collections.tracks
             });
 
-            router.collections.tracks.length !== 0
-                ? router.views[config.view].render()    /* collection has been fetched previously */
-                : router.collections.tracks.fetch();     /* collection is empty so fetch it */
+            if (library.collections.tracks.length !== 0) {                                   /* collection has been fetched previously */
+                if (library.collections.tracks.length === config.amount) {
+                    library.views[config.view].render();
+                } else {                                                                    /* amount to be rendered has changed so fetch it */
+                    library.collections.tracks.fetch({
+                        data: {
+                            amount: config.amount
+                        }
+                    });
+                }
+            } else {                                                                        /* collection is empty so fetch it */
+                library.collections.tracks.fetch({
+                    data: {
+                        amount: config.amount
+                    }
+                });
+            }
         }
 
     });

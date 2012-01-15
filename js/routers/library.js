@@ -8,6 +8,7 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
             var bookRouter = new BookRouter(),
                 trackRouter = new TrackRouter;
 
+
             this.route("books/add", "addBook", function() {
                 this.dispatch({
                     router: bookRouter,
@@ -36,6 +37,14 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
                     id: id,
                     router: bookRouter,
                     view: "showBook"
+                });
+            });
+
+            this.route("books/:amount", "showBooks", function(amount) {
+                this.dispatch({
+                    amount: amount,
+                    router: bookRouter,
+                    view: "showBooks"
                 });
             });
 
@@ -76,6 +85,14 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
                     id: id,
                     router: trackRouter,
                     view: "showTrack"
+                });
+            });
+
+            this.route("tracks/:amount", "showTracks", function(amount) {
+                this.dispatch({
+                    amount: amount,
+                    router: trackRouter,
+                    view: "showTracks"
                 });
             });
 

@@ -3,24 +3,24 @@ define([    "jquery",  "underscore", "backbone", "models/book", "collections/boo
 
     return Backbone.Router.extend({
 
-        addBook: function(router, config) {
-            router.views[config.view] = new BookAddView({
-                collection: router.collections.books || new BookCollection(),
-                container: router.appContainer,
+        addBook: function(library, config) {
+            library.views[config.view] = new BookAddView({
+                collection: library.collections.books || new BookCollection(),
+                container: library.appContainer,
                 model: new BookModel()
             }).render();
         },
 
-        deleteBook: function(router, config) {
+        deleteBook: function(library, config) {
             var setDeleteView = function(model) {
-                router.views[config.view] = new BookDeleteView({
-                    container: router.appContainer,
+                library.views[config.view] = new BookDeleteView({
+                    container: library.appContainer,
                     model: model
                 }).render();
             };
 
-            router.collections.books
-                ? setDeleteView(router.collections.books.get(config.id))
+            library.collections.books
+                ? setDeleteView(library.collections.books.get(config.id))
                 : new BookModel({ id: config.id }).fetch({
                     success: function(model, response) {
                         setDeleteView(model);
@@ -28,16 +28,16 @@ define([    "jquery",  "underscore", "backbone", "models/book", "collections/boo
                 });
         },
 
-        editBook: function(router, config) {
+        editBook: function(library, config) {
             var setEditView = function(model) {
-                router.views[config.view] = new BookEditView({
-                    container: router.appContainer,
+                library.views[config.view] = new BookEditView({
+                    container: library.appContainer,
                     model: model
                 }).render();
             };
 
-            router.collections.books
-                ? setEditView(router.collections.books.get(config.id))
+            library.collections.books
+                ? setEditView(library.collections.books.get(config.id))
                 : new BookModel({ id: config.id }).fetch({
                     success: function(model, response) {
                         setEditView(model);
@@ -46,16 +46,16 @@ define([    "jquery",  "underscore", "backbone", "models/book", "collections/boo
 
         },
 
-        showBook: function(router, config) {
+        showBook: function(library, config) {
             var setBookView = function(model) {
-                router.views[config.view] = new BookDetailsView({
-                    container: router.appContainer,
+                library.views[config.view] = new BookDetailsView({
+                    container: library.appContainer,
                     model: model
                 }).render();
             };
 
-            router.collections.books
-                ? setBookView(router.collections.books.get(config.id))
+            library.collections.books
+                ? setBookView(library.collections.books.get(config.id))
                 : new BookModel({ id: config.id }).fetch({
                     success: function(model, response) {
                         setBookView(model);
@@ -63,17 +63,31 @@ define([    "jquery",  "underscore", "backbone", "models/book", "collections/boo
                 });
         },
 
-        showBooks: function(router, config) {
-            router.collections.books = router.collections.books || new BookCollection(); /* make sure we have a collection */
+        showBooks: function(library, config) {
+            library.collections.books = library.collections.books || new BookCollection();  /* make sure we have a collection */
 
-            router.views[config.view] = new BookListView({
-                container: router.appContainer,
-                collection: router.collections.books
+            library.views[config.view] = library.views[config.view] || new BookListView({   /* reuse existing view to prevent double reset */
+                container: library.appContainer,
+                collection: library.collections.books
             });
 
-            router.collections.books.length !== 0
-                ? router.views[config.view].render()    /* collection has been fetched previously */
-                : router.collections.books.fetch();     /* collection is empty so fetch it */
+            if (library.collections.books.length !== 0) {                                   /* collection has been fetched previously */
+                if (library.collections.books.length === config.amount) {
+                    library.views[config.view].render();
+                } else {                                                                    /* amount to be rendered has changed so fetch it */
+                    library.collections.books.fetch({
+                        data: {
+                            amount: config.amount
+                        }
+                    });
+                }
+            } else {                                                                        /* collection is empty so fetch it */
+                library.collections.books.fetch({
+                    data: {
+                        amount: config.amount
+                    }
+                });
+            }
         }
 
     });

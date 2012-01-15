@@ -26,7 +26,7 @@ $app->get('/tracks', 'getTracks');
 $app->put('/tracks/:id', 'updateTrack');
 /* /tracks */
 
-$app->response()->header('Content-Type', 'text/plain');
+//$app->response()->header('Content-Type', 'text/plain');
 
 $app->run();
 

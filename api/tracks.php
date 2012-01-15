@@ -52,7 +52,12 @@ function getTrack($id) {
 }
 
 function getTracks() {
+    $request = Slim::getInstance()->request();
+    $amount = $request->get("amount");
 	$sql = "SELECT * FROM tracks ORDER BY id";
+	if ($amount) {
+	    $sql .= " LIMIT $amount";
+	}
 	try {
 		$db = getConnection();
 		$stmt = $db->query($sql);
