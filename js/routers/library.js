@@ -1,5 +1,5 @@
-define([    "jquery",  "underscore", "backbone", "routers/books", "routers/tracks"
-], function( $,         _,            Backbone,   BookRouter,      TrackRouter) {
+define([    "jquery",  "underscore", "backbone", "routers/books", "routers/tracks", "collections/books", "collections/tracks", "views/library/overview"
+], function( $,         _,            Backbone,   BookRouter,      TrackRouter,      BookCollection,      TrackCollection,      LibraryOverview) {
 
     return Backbone.Router.extend({
         initialize: function(options) {
@@ -7,6 +7,13 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
 
             var bookRouter = new BookRouter(),
                 trackRouter = new TrackRouter;
+
+            this.route("", "showOverview", function() {
+                this.dispatch({
+                    router: this,
+                    view: "showOverview"
+                });
+            });
 
 
             this.route("books/add", "addBook", function() {
@@ -40,7 +47,7 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
                 });
             });
 
-            this.route("books/:amount", "showBooks", function(amount) {
+            this.route("books/top/:amount", "showBooks", function(amount) {
                 this.dispatch({
                     amount: amount,
                     router: bookRouter,
@@ -88,7 +95,7 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
                 });
             });
 
-            this.route("tracks/:amount", "showTracks", function(amount) {
+            this.route("tracks/top/:amount", "showTracks", function(amount) {
                 this.dispatch({
                     amount: amount,
                     router: trackRouter,
@@ -115,8 +122,37 @@ define([    "jquery",  "underscore", "backbone", "routers/books", "routers/track
             this.views[this.currentView] && this.views[this.currentView].close();
             this.currentView = config.view;
             config.router[config.view](this, config);
-        }
+        },
 
+        showOverview: function(library, config) {
+            var books = new BookCollection(),
+                tracks = new TrackCollection();
+
+            library.views[config.view] = new LibraryOverview({
+                collections: [{
+                    instance: books,
+                    type: "books"
+                }, {
+                    instance: tracks,
+                    type: "tracks"
+                }],
+                container: library.appContainer
+            });
+
+            books.fetch({
+                data: {
+                    amount: 5
+                }
+            });
+
+            tracks.fetch({
+                data: {
+                    amount: 5
+                }
+            });
+
+            library.views[config.view].render();
+        }
 
     });
 

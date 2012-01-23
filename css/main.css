@@ -23,8 +23,17 @@ fieldset
 h1
 { margin: 20px; }
 
+h2
+{ border-bottom: 2px solid #ddd; margin-bottom: 10px; }
+
+table
+{ border-bottom: 1px solid #ddd; }
+
 table .col-title
 { width: 50%; }
+
+.more
+{ border-bottom: 2px solid #ddd; padding-bottom: 20px; }
 
 .view
 { padding: 10px 20px 20px 20px; }
@@ -44,7 +53,7 @@ table .col-title
 #details
 { border: 2px solid #ddd; border-radius: 5px; margin: 10px 20px; }
 
-    #details > a
+    #details > p
     { float: right; }
 
     #details dl
@@ -55,3 +64,12 @@ table .col-title
 
         #details dd
         { float: left; padding: 2px 0; }
+
+#list
+{}
+
+    #list > p:first-child
+    { float: right; margin: 15px 0 0 0; }
+
+#overview
+{ padding: 0; }

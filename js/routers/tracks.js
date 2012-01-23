@@ -3,24 +3,24 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
 
     return Backbone.Router.extend({
 
-        addTrack: function(router, config) {
-            router.views[config.view] = new TrackAddView({
-                collection: router.collections.tracks || new TrackCollection(),
-                container: router.appContainer,
+        addTrack: function(library, config) {
+            library.views[config.view] = new TrackAddView({
+                collection: library.collections.tracks || new TrackCollection(),
+                container: library.appContainer,
                 model: new TrackModel()
             }).render();
         },
 
-        deleteTrack: function(router, config) {
+        deleteTrack: function(library, config) {
             var setDeleteView = function(model) {
-                router.views[config.view] = new TrackDeleteView({
-                    container: router.appContainer,
+                library.views[config.view] = new TrackDeleteView({
+                    container: library.appContainer,
                     model: model
                 }).render();
             };
 
             router.collections.tracks
-                ? setDeleteView(router.collections.tracks.get(config.id))
+                ? setDeleteView(library.collections.tracks.get(config.id))
                 : new TrackModel({ id: config.id }).fetch({
                     success: function(model, response) {
                         setDeleteView(model);
@@ -28,16 +28,16 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
                 });
         },
 
-        editTrack: function(router, config) {
+        editTrack: function(library, config) {
             var setEditView = function(model) {
-                router.views[config.view] = new TrackEditView({
-                    container: router.appContainer,
+                library.views[config.view] = new TrackEditView({
+                    container: library.appContainer,
                     model: model
                 }).render();
             };
 
-            router.collections.tracks
-                ? setEditView(router.collections.tracks.get(config.id))
+            library.collections.tracks
+                ? setEditView(library.collections.tracks.get(config.id))
                 : new TrackModel({ id: config.id }).fetch({
                     success: function(model, response) {
                         setEditView(model);
@@ -46,16 +46,16 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
 
         },
 
-        showTrack: function(router, config) {
+        showTrack: function(library, config) {
             var setTrackView = function(model) {
-                router.views[config.view] = new TrackDetailsView({
-                    container: router.appContainer,
+                library.views[config.view] = new TrackDetailsView({
+                    container: library.appContainer,
                     model: model
                 }).render();
             };
 
-            router.collections.tracks
-                ? setTrackView(router.collections.tracks.get(config.id))
+            library.collections.tracks
+                ? setTrackView(library.collections.tracks.get(config.id))
                 : new TrackModel({ id: config.id }).fetch({
                     success: function(model, response) {
                         setTrackView(model);
@@ -63,8 +63,8 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
                 });
         },
 
-        showTracks: function(router, config) {
-            router.collections.tracks = router.collections.tracks || new TrackCollection(); /* make sure we have a collection */
+        showTracks: function(library, config) {
+            library.collections.tracks = library.collections.tracks || new TrackCollection(); /* make sure we have a collection */
 
             library.views[config.view] = library.views[config.view] || new TrackListView({   /* reuse existing view to prevent double reset */
                 container: library.appContainer,

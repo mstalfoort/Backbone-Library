@@ -18,11 +18,11 @@ define([    "jquery", "underscore", "backbone", "views/book/list-item", "text!te
                 $tbody = null;
 
             $el.html(this.template({
+                add: "<p><a href='#books/add' class='btn'>Add book</a></p>",
                 caption: "My books",
-                headers: this.headers
+                headers: this.headers,
+                more: this.options.more ? "<p class='more'><a href='#books'>More books</a></p>" : ""
             }));
-
-            $el.prepend("<p><a href='#books/add' class='btn'>Add book</a></p>");
 
             $tbody = $el.find("tbody");
 
