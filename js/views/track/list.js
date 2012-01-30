@@ -19,6 +19,7 @@ define([    "jquery", "underscore", "backbone", "views/track/list-item", "text!t
 
             $el.html(this.template({
                 add: "<p><a href='#tracks/add' class='btn'>Add track</a></p>",
+                backlink: this.options.backlink ? "<p><a href='#'>library</a></p>" : "",
                 caption: "My tracks",
                 headers: this.headers,
                 more: this.options.more ? "<p class='more'><a href='#tracks'>More tracks</a></p>" : ""

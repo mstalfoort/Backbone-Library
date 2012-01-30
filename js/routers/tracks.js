@@ -67,6 +67,7 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
             library.collections.tracks = library.collections.tracks || new TrackCollection(); /* make sure we have a collection */
 
             library.views[config.view] = library.views[config.view] || new TrackListView({   /* reuse existing view to prevent double reset */
+                backlink: true,
                 container: library.appContainer,
                 collection: library.collections.tracks
             });

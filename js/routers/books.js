@@ -67,6 +67,7 @@ define([    "jquery",  "underscore", "backbone", "models/book", "collections/boo
             library.collections.books = library.collections.books || new BookCollection();  /* make sure we have a collection */
 
             library.views[config.view] = library.views[config.view] || new BookListView({   /* reuse existing view to prevent double reset */
+                backlink: true,
                 collection: library.collections.books,
                 container: library.appContainer
             });
