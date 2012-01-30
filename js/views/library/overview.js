@@ -1,14 +1,11 @@
-define([    "jquery", "underscore", "backbone", "views/book/list", "views/track/list", "text!templates/overview.html"
-], function( $,        _,            Backbone,   BookListView,      TrackListView,      overviewTemplate) {
+define([    "jquery", "underscore", "backbone", "views/book/list", "views/track/list"
+], function( $,        _,            Backbone,   BookListView,      TrackListView) {
 
     return Backbone.View.extend({
         /* element properties */
         className: "view",
         id: "overview",
         tagName: "div",
-
-        /* view properties */
-        template: _.template(overviewTemplate),
 
         /* element methods */
         close: function() { $(this.el).unbind().remove(); },
