@@ -19,7 +19,7 @@ define([    "jquery",  "underscore", "backbone", "models/track", "collections/tr
                 }).render();
             };
 
-            router.collections.tracks
+            library.collections.tracks
                 ? setDeleteView(library.collections.tracks.get(config.id))
                 : new TrackModel({ id: config.id }).fetch({
                     success: function(model, response) {
