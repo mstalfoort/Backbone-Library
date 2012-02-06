@@ -4,7 +4,41 @@
         <% _.each(fields, function(field) { %>
             <div>
                 <label for="input-<%= field.label %>"><%= field.label %></label>
-                <input id="input-<%= field.label %>" type="text" value="<%= field.value %>"/>
+                <%
+                    switch(field.type) {
+                        case "text":
+                    %>
+                        <input id="input-<%= field.label %>" type="text" value="<%= field.value %>"/>
+                    <%
+                        break;
+                        case "memo":
+                    %>
+                        <textarea id="input-<%= field.label %>" cols="35" rows="5"><%= field.value %></textarea>
+                    <%
+                        break;
+                        case "list":
+                    %>
+                        <select id="input-<%= field.label %>">
+                            <option>select a <%= field.label %></option>
+                            <% _.each(lists[field.label], function(item) { %>
+                                <option value="<%= item[field.label] %>"<% if (item[field.label] === field.value) { %> selected="selected"<% } %>><%= item[field.label] %></option>
+                            <% }); %>
+                        </select>
+                    <%
+                        break;
+                        case "enum":
+                    %>
+                        <select id="input-<%= field.label %>">
+                            <option selected="selected">select a <%= field.label %></option>
+                            <% _.each(field.values, function(value) { %>
+                                <option value="<%= value %>"<% if (value === field.value.toLowerCase()) { %> selected="selected"<% } %>><%= value %></option>
+                            <% }); %>
+                        </select>
+                    <%
+                        break;
+                        default:
+                    }
+                %>
             </div>
         <% }); %>
         <div class="buttons">

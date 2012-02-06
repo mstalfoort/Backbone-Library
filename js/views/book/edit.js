@@ -11,6 +11,27 @@ define([    "jquery", "underscore", "backbone", "text!templates/edit.html"
         events: { "click #btn-save": "saveBook" },
         template: _.template(editTemplate),
 
+        /* data methods */
+        getLists: function(fields) {
+            var lists = {};
+
+            _.each(fields, function(item, index, list) {
+                if (item.type === "list") {
+                    $.ajax({
+                        async: false,
+                        dataType: "json",
+                        success: function(data) {
+                            lists[item.label] = data;
+                        },
+                        type: "get",
+                        url: item.src
+                    });
+                };
+            });
+
+            return lists;
+        },
+
         /* element methods */
         close: function() { $(this.el).unbind().remove(); },
         render: function() {
@@ -22,6 +43,7 @@ define([    "jquery", "underscore", "backbone", "text!templates/edit.html"
 
             $(this.el).html(this.template({
                 fields: fields,
+                lists: this.getLists(this.model.fields),
                 title: this.model.get("title"),
                 type: "book"
             }));
