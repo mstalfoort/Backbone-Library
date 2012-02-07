@@ -15,10 +15,10 @@ fieldset
 
     fieldset input[type="text"],
     fieldset textarea
-    { width: 300px; }
+    { width: 400px; }
 
     fieldset select
-    { width: 310px; }
+    { width: 410px; }
 
 h1
 { margin: 20px; }
@@ -39,7 +39,7 @@ table .col-title
 { padding: 10px 20px 20px 20px; }
 
     .view form
-    { min-width: 430px; max-width: 500px; }
+    { min-width: 430px; max-width: 600px; }
 
         .view label
         { color: #555; font-weight: bold; margin-right: 10px; min-width: 75px; width: auto; }
